@@ -4,8 +4,11 @@ import * as aws_cloudwatch from 'aws-cdk-lib/aws-cloudwatch'
 import { Construct } from 'constructs'
 import _ from 'lodash'
 import { QuoteAmountsWidgetsFactory } from '../../lib/dashboards/quote-amounts-widgets-factory'
-import { SUPPORTED_CHAINS } from '../../lib/handlers/injector-sor'
 import { CachedRoutesWidgetsFactory } from '../../lib/dashboards/cached-routes-widgets-factory'
+
+const _SUPPORTED_CHAINS: ChainId[] = [
+  ChainId.MAINNET
+]
 
 export const NAMESPACE = 'Uniswap'
 
@@ -307,7 +310,7 @@ export class RoutingDashboardStack extends cdk.NestedStack {
             properties: {
               view: 'timeSeries',
               stacked: false,
-              metrics: _.flatMap(SUPPORTED_CHAINS, (chainId: ChainId) => [
+              metrics: _.flatMap(_SUPPORTED_CHAINS, (chainId: ChainId) => [
                 [NAMESPACE, `MixedAndV3AndV2SplitRouteForChain${chainId}`, 'Service', 'RoutingAPI'],
                 [NAMESPACE, `MixedAndV3SplitRouteForChain${chainId}`, 'Service', 'RoutingAPI'],
                 [NAMESPACE, `MixedAndV2SplitRouteForChain${chainId}`, 'Service', 'RoutingAPI'],
@@ -332,7 +335,7 @@ export class RoutingDashboardStack extends cdk.NestedStack {
             width: 24,
             height: 6,
             properties: {
-              metrics: _.flatMap(SUPPORTED_CHAINS, (chainId: ChainId) => [
+              metrics: _.flatMap(_SUPPORTED_CHAINS, (chainId: ChainId) => [
                 ['Uniswap', `QuoteFoundForChain${chainId}`, 'Service', 'RoutingAPI'],
                 ['Uniswap', `QuoteRequestedForChain${chainId}`, 'Service', 'RoutingAPI'],
               ]),
