@@ -151,11 +151,12 @@ export class RoutingAPIPipeline extends Stack {
       jsonRpcProviders[key] = jsonRpcProvidersSecret.secretValueFromJson(key).toString()
     })
 
+    /*
     // Beta us-east-2
     const betaUsEast2Stage = new RoutingAPIStage(this, 'beta-us-east-2', {
       env: { account: '145079444317', region: 'us-east-2' },
       jsonRpcProviders: jsonRpcProviders,
-      provisionedConcurrency: 100,
+      provisionedConcurrency: 5,
       ethGasStationInfoUrl: ethGasStationInfoUrl.secretValue.toString(),
       stage: STAGE.BETA,
       route53Arn: route53Arn.secretValueFromJson('arn').toString(),
@@ -170,12 +171,13 @@ export class RoutingAPIPipeline extends Stack {
     const betaUsEast2AppStage = pipeline.addStage(betaUsEast2Stage)
 
     this.addIntegTests(code, betaUsEast2Stage, betaUsEast2AppStage)
-
+    */
+    
     // Prod us-east-2
     const prodUsEast2Stage = new RoutingAPIStage(this, 'prod-us-east-2', {
       env: { account: '991501205644', region: 'us-east-2' },
       jsonRpcProviders: jsonRpcProviders,
-      provisionedConcurrency: 100,
+      provisionedConcurrency: 5,
       ethGasStationInfoUrl: ethGasStationInfoUrl.secretValue.toString(),
       chatbotSNSArn: 'arn:aws:sns:us-east-2:991501205644:SlackChatbotTopic',
       stage: STAGE.PROD,
@@ -248,17 +250,17 @@ const jsonRpcProviders = {
   WEB3_RPC_3: process.env.JSON_RPC_PROVIDER_3!,
   WEB3_RPC_4: process.env.JSON_RPC_PROVIDER_4!,
   WEB3_RPC_5: process.env.JSON_RPC_PROVIDER_5!,
-  WEB3_RPC_42: process.env.JSON_RPC_PROVIDER_42!,
+  //WEB3_RPC_42: process.env.JSON_RPC_PROVIDER_42!,
   WEB3_RPC_10: process.env.JSON_RPC_PROVIDER_10!,
-  WEB3_RPC_69: process.env.JSON_RPC_PROVIDER_69!,
+  //WEB3_RPC_69: process.env.JSON_RPC_PROVIDER_69!,
   WEB3_RPC_42161: process.env.JSON_RPC_PROVIDER_42161!,
   WEB3_RPC_421611: process.env.JSON_RPC_PROVIDER_421611!,
-  WEB3_RPC_421613: process.env.JSON_RPC_PROVIDER_421613!,
+  //WEB3_RPC_421613: process.env.JSON_RPC_PROVIDER_421613!,
   WEB3_RPC_137: process.env.JSON_RPC_PROVIDER_137!,
-  WEB3_RPC_80001: process.env.JSON_RPC_PROVIDER_80001!,
-  WEB3_RPC_42220: process.env.JSON_RPC_PROVIDER_42220!,
-  WEB3_RPC_44787: process.env.JSON_RPC_PROVIDER_44787!,
-  WEB3_RPC_56: process.env.JSON_RPC_PROVIDER_56!,
+  //WEB3_RPC_80001: process.env.JSON_RPC_PROVIDER_80001!,
+  //WEB3_RPC_42220: process.env.JSON_RPC_PROVIDER_42220!,
+  //WEB3_RPC_44787: process.env.JSON_RPC_PROVIDER_44787!,
+  //WEB3_RPC_56: process.env.JSON_RPC_PROVIDER_56!,
 }
 
 // Local dev stack
@@ -277,6 +279,7 @@ new RoutingAPIStack(app, 'RoutingAPIStack', {
   tenderlyProject: process.env.TENDERLY_PROJECT!,
   tenderlyAccessKey: process.env.TENDERLY_ACCESS_KEY!,
 })
+
 
 //new RoutingAPIPipeline(app, 'RoutingAPIPipelineStack', {
 //  env: { account: '991501205644', region: 'us-east-2' },
